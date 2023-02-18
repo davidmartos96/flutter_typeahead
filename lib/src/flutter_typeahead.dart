@@ -1013,7 +1013,12 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
       // the style visually. However, when VO/TB are not enabled it is
       // necessary to use the Positioned widget to allow the elements to be
       // properly tappable.
-      return MediaQuery.of(context).accessibleNavigation
+
+      // ignore: dead_code
+      final accesibleNavigation = false && MediaQuery.of(context).accessibleNavigation;
+      
+      return accesibleNavigation
+          // ignore: dead_code
           ? Semantics(
               container: true,
               child: Align(
@@ -1367,7 +1372,8 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
       );
     }
 
-    var container = Material(
+    var container = TextFieldTapRegion(
+      child: Material(
       elevation: widget.decoration!.elevation,
       color: widget.decoration!.color,
       shape: widget.decoration!.shape,
@@ -1377,6 +1383,7 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
       child: ConstrainedBox(
         constraints: constraints,
         child: animationChild,
+        ),
       ),
     );
 
@@ -1449,8 +1456,7 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
         final suggestion = _suggestions!.elementAt(index);
         final focusNode = _focusNodes[index];
 
-        return TextFieldTapRegion(
-          child: InkWell(
+        return InkWell(
             key: TestKeys.getSuggestionKey(index),
             focusColor: Theme.of(context).hoverColor,
             focusNode: focusNode,
@@ -1461,7 +1467,6 @@ class _SuggestionsListState<T> extends State<_SuggestionsList<T>>
 
               widget.onSuggestionSelected!(suggestion);
             },
-          ),
         );
       }),
     );
