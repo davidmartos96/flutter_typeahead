@@ -802,7 +802,7 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
     _effectiveFocusNode!.removeListener(_focusNodeListener);
     _focusNode?.dispose();
     _resizeOnScrollTimer?.cancel();
-    _scrollPosition?.removeListener(_scrollResizeListener);
+    _scrollPosition?.isScrollingNotifier.removeListener(_scrollResizeListener);
     _textEditingController?.dispose();
     _keyboardSuggestionSelectionNotifier.dispose();
     super.dispose();
@@ -902,7 +902,7 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
       // The TypeAheadField is inside a scrollable widget
       _scrollPosition = scrollableState.position;
 
-      _scrollPosition!.removeListener(_scrollResizeListener);
+      _scrollPosition!.isScrollingNotifier.removeListener(_scrollResizeListener);
       _scrollPosition!.isScrollingNotifier.addListener(_scrollResizeListener);
     }
   }
